@@ -1,3 +1,4 @@
+const userModel = require("../model/user-model");
 const UserModel = require("../model/user-model");
 const UserDAO = {
   registerUser: (payload) => {
@@ -10,6 +11,12 @@ const UserDAO = {
   },
   comparePassword: (reqPassword, UserPassword) => {
     return reqPassword == UserPassword;
+  },
+  list: () => {
+    return userModel.find();
+  },
+  getById: (data) => {
+    return userModel.findOne({ _id: data });
   },
 };
 module.exports = UserDAO;

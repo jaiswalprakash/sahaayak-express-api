@@ -6,6 +6,7 @@ const Constant = {
     USER: "users",
     GRADE: "grades",
     ORIGANIZATION: "origanizations",
+    STUDENT: "students",
   },
   HTTP_STATUS_CODE: {
     SUCCESS: 200,
@@ -34,6 +35,9 @@ const Constant = {
       CREATED: "Origanization Created Successfully.",
 
       ISEXIST: "Origanization already Exist.",
+    },
+    STUDENT: {
+      CREATED: "Student Created Successfully.",
     },
     COMMON: {
       SERVER_ERROR: "Sorry! Something went wrong.",

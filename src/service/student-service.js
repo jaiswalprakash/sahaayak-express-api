@@ -1,31 +1,13 @@
-const UserDAO = require("../dao/user-dao");
+const StudentDAO = require("../dao/student-dao");
 const CONSTANT = require("../utils/constant");
-const UserService = {
-  registerUser: (payload) => {
+const StudentService = {
+  Create: (payload) => {
     return new Promise((resolve, reject) => {
-      UserDAO.registerUser(payload)
+      StudentDAO.Create(payload)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.CREATED,
-            message: CONSTANT.MESSAGE.USER.CREATED,
-            data: result,
-          });
-        })
-        .catch((error) => {
-          reject({
-            status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
-            message: error,
-          });
-        });
-    });
-  },
-  isUserExist: (payload) => {
-    return new Promise((resolve, reject) => {
-      UserDAO.isUserExist(payload)
-        .then((result) => {
-          resolve({
-            status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
-            message: CONSTANT.MESSAGE.USER.USER_ALREADY_REGISTERED,
+            message: CONSTANT.MESSAGE.STUDENT.CREATED,
             data: result,
           });
         })
@@ -39,7 +21,7 @@ const UserService = {
   },
   List: () => {
     return new Promise((resolve, reject) => {
-      UserDAO.List()
+      StudentDAO.List()
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
@@ -56,5 +38,4 @@ const UserService = {
     });
   },
 };
-
-module.exports = UserService;
+module.exports = StudentService;

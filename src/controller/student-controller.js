@@ -1,12 +1,10 @@
 const express = require("express");
-const OriganizationService = require("../service/Origanization-service");
-const UserService = require("../service/user-service");
+const StudentValidator = require("../validator/student-validator");
+const StudentService = require("../service/student-service");
 const route = express.Router();
-const UserValidator = require("../validator/user-validator");
-
-route.post("", UserValidator.userValidate, (req, res) => {
+route.post("", StudentValidator.studentValidate, (req, res) => {
   let bodyData = req.body;
-  UserService.registerUser(bodyData)
+  StudentService.Create(bodyData)
     .then((result) => {
       res.status(result.status).send({
         status: result.status,
@@ -20,9 +18,8 @@ route.post("", UserValidator.userValidate, (req, res) => {
         .send({ status: error.status, message: error.message });
     });
 });
-
 route.get("", (req, res) => {
-  UserService.List()
+  StudentService.List()
     .then((result) => {
       res.status(result.status).send({
         status: result.status,

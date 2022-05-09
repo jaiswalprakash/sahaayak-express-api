@@ -12,8 +12,10 @@ app.use(cors());
 //Routes to Controller
 
 app.use("/auth", require("./src/controller/auth-controller"));
+app.use("/users", require("./src/controller/user-controller"));
 app.use("/grades", require("./src/controller/grade-controller"));
 app.use("/origanizatins", require("./src/controller/origanization-controller"));
+app.use("/students", require("./src/controller/student-controller"));
 // routes ends
 
 //create admin

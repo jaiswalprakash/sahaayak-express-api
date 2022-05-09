@@ -1,7 +1,9 @@
 const express = require("express");
 const GradeService = require("../service/grade-service");
 const route = express.Router();
+const isAuthenticate = require("../service/token-service");
 const GradeValidator = require("../validator/grade-validator");
+
 route.post("", GradeValidator.gradeValidate, (req, res) => {
   let bodyData = req.body;
   GradeService.Create(bodyData)

@@ -9,6 +9,7 @@ const Constant = {
     STUDENT: "students",
     ATTENDANCE: "attendances",
     FEE: "fees",
+    PAYMENT: "payments",
   },
   HTTP_STATUS_CODE: {
     SUCCESS: 200,
@@ -48,6 +49,9 @@ const Constant = {
     },
     STUDENT: {
       CREATED: "Student Created Successfully.",
+    },
+    PAYMENT: {
+      CREATED: "Payment Done Successfully.",
     },
     COMMON: {
       SERVER_ERROR: "Sorry! Something went wrong.",

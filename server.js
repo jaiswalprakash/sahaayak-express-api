@@ -18,6 +18,7 @@ app.use("/origanizatins", require("./src/controller/origanization-controller"));
 app.use("/students", require("./src/controller/student-controller"));
 app.use("/attendances", require("./src/controller/attendance-controller"));
 app.use("/fees", require("./src/controller/fee-controller"));
+app.use("/payments", require("./src/controller/payment-controller"));
 
 // routes ends
 

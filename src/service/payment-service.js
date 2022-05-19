@@ -1,21 +1,13 @@
-const OriganizationDAO = require("../dao/origanization-dao");
+const PaymentDAO = require("../dao/payment-dao");
 const CONSTANT = require("../utils/constant");
-const OriganizationService = {
+const PaymentService = {
   Create: (payload) => {
     return new Promise((resolve, reject) => {
-      /*  when origanization is created create user
-          email:org-email,
-          role:ADMIN ,
-          orgid:created orgid, 
-          name:organizatiomname+admin,
-          password:name+123,
-          and send email to that email login Credential(for noe console the creditional)
-      */
-      OriganizationDAO.Create(payload)
+      PaymentDAO.Create(payload)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.CREATED,
-            message: CONSTANT.MESSAGE.ORIGANIZATION.CREATED,
+            message: CONSTANT.MESSAGE.PAYMENT.CREATED,
             data: result,
           });
         })
@@ -27,9 +19,9 @@ const OriganizationService = {
         });
     });
   },
-  List: () => {
+  List: (orgId = null) => {
     return new Promise((resolve, reject) => {
-      OriganizationDAO.List()
+      PaymentDAO.List(orgId)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
@@ -47,7 +39,7 @@ const OriganizationService = {
   },
   Detail: (id) => {
     return new Promise((resolve, reject) => {
-      OriganizationDAO.Detail(id)
+      PaymentDAO.Detail(id)
         .then((result) => {
           if (result.length > 0) {
             resolve({
@@ -72,4 +64,4 @@ const OriganizationService = {
   },
 };
 
-module.exports = OriganizationService;
+module.exports = PaymentService;

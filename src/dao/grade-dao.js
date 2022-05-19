@@ -5,8 +5,11 @@ const GradeDAO = {
       ...payload,
     }).save();
   },
-  List: () => {
-    return GradeModel.find();
+  List: (orgId) => {
+    return orgId ? GradeModel.find({ orgId }) : GradeModel.find();
+  },
+  Detail: (id) => {
+    return GradeModel.find({ _id: id });
   },
 };
 module.exports = GradeDAO;

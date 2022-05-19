@@ -1,11 +1,12 @@
 const express = require("express");
-const OriganizationService = require("../service/Origanization-service");
 const UserService = require("../service/user-service");
 const route = express.Router();
 const UserValidator = require("../validator/user-validator");
-
-route.post("", UserValidator.userValidate, (req, res) => {
+const isAuthenticate = require("../service/token-service");
+route.post("", isAuthenticate, UserValidator.userValidate, (req, res) => {
   let bodyData = req.body;
+  let userDetail = req.user;
+  if (userDetail?.orgId) bodyData["orgId"] = userDetail.orgId;
   UserService.registerUser(bodyData)
     .then((result) => {
       res.status(result.status).send({
@@ -21,8 +22,9 @@ route.post("", UserValidator.userValidate, (req, res) => {
     });
 });
 
-route.get("", (req, res) => {
-  UserService.List()
+route.get("", isAuthenticate, (req, res) => {
+  let userDetail = req.user;
+  UserService.List(userDetail?.orgId)
     .then((result) => {
       res.status(result.status).send({
         status: result.status,

@@ -16,6 +16,9 @@ app.use("/users", require("./src/controller/user-controller"));
 app.use("/grades", require("./src/controller/grade-controller"));
 app.use("/origanizatins", require("./src/controller/origanization-controller"));
 app.use("/students", require("./src/controller/student-controller"));
+app.use("/attendances", require("./src/controller/attendance-controller"));
+app.use("/fees", require("./src/controller/fee-controller"));
+
 // routes ends
 
 //create admin

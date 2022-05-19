@@ -7,6 +7,8 @@ const Constant = {
     GRADE: "grades",
     ORIGANIZATION: "origanizations",
     STUDENT: "students",
+    ATTENDANCE: "attendances",
+    FEE: "fees",
   },
   HTTP_STATUS_CODE: {
     SUCCESS: 200,
@@ -26,10 +28,18 @@ const Constant = {
       NOT_REGISTERED: "User not registered with the given Email.",
       LOGIN_SUCCESS: "User loggedin successfully",
     },
+    ATTENDANCE: {
+      MARKED: "Attendance-Marked Created Successfully.",
+    },
     GRADE: {
       CREATED: "Grade Created Successfully.",
 
       ISEXIST: "Grade already Exist.",
+    },
+    FEE: {
+      CREATED: "Fee Created Successfully.",
+
+      ISEXIST: "Fee already Exist.",
     },
     ORIGANIZATION: {
       CREATED: "Origanization Created Successfully.",

@@ -15,7 +15,7 @@ const StudentValidateSchema = Joi.object({
     relation: Joi.string().required(),
   }),
   grade: Joi.string().required(),
-  orgId: Joi.string(),
+  // orgId: Joi.string(),
   uuid: Joi.string().required(),
 });
 

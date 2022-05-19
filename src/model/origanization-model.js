@@ -8,6 +8,11 @@ const OriganizationSchema = new schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     address: {
       country: { type: String, required: true },
       state: { type: String, required: true },

@@ -32,7 +32,7 @@ const StudentSchema = new schema(
     orgId: {
       type: schema.Types.ObjectId,
       ref: CONSTANT.COLLECTION.ORIGANIZATION,
-      required: false,
+      required: true,
     },
     grade: {
       type: schema.Types.ObjectId,

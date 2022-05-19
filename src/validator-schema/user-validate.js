@@ -6,8 +6,12 @@ const UserValidateSchema = Joi.object({
     .email({ tlds: { allow: false } })
     .required(),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
-  orgId: Joi.string().required(),
   role: Joi.valid(...CONSTANT.ROLE).required(),
+  // orgId: Joi.string().when("role", {
+  //   is: "SUPER-ADMIN",
+  //   then: Joi.optional(),
+  //   otherwise: Joi.required(),
+  // }),
 });
 
 module.exports = UserValidateSchema;

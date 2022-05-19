@@ -1,7 +1,13 @@
 const StudentDAO = require("../dao/student-dao");
 const CONSTANT = require("../utils/constant");
+const OriganizationService = require("../service/origanization-service");
+const GradeService = require("../service/grade-service");
+const { count } = require("../model/grade-model");
+
 const StudentService = {
-  Create: (payload) => {
+  Create: (payload, orgId) => {
+    // let UUID = StudentService.GenerateUUID(orgId, payload.grade);
+    // console.log("uuid", UUID);
     return new Promise((resolve, reject) => {
       StudentDAO.Create(payload)
         .then((result) => {
@@ -19,9 +25,9 @@ const StudentService = {
         });
     });
   },
-  List: () => {
+  List: (orgId = null) => {
     return new Promise((resolve, reject) => {
-      StudentDAO.List()
+      StudentDAO.List(orgId)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
@@ -37,5 +43,24 @@ const StudentService = {
         });
     });
   },
+  // GenerateUUID: (orgId, gradeId) => {
+  //   let orgDetail;
+  //   let gradeDetail;
+  //   OriganizationService.Detail(orgId).then((result) => {
+  //     console.log();
+  //     orgDetail = result;
+  //   });
+  //   GradeService.Detail(gradeId).then((result) => {
+  //     gradeDetail = result;
+  //   });
+  //   console.log("orgDetail", orgDetail);
+  //   console.log("gradeDetail", gradeDetail);
+  //   return (
+  //     orgDetail.name.slice(0, 3) +
+  //     "G" +
+  //     gradeDetail.name +
+  //     Math.floor(100 + Math.random() * 900)
+  //   ).toLowerCase();
+  // },
 };
 module.exports = StudentService;

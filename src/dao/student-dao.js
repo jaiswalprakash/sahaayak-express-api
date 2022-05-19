@@ -5,8 +5,8 @@ const StudentDAO = {
       ...payload,
     }).save();
   },
-  List: () => {
-    return StudentModel.find();
+  List: (orgId) => {
+    return orgId ? StudentModel.find({ orgId }) : StudentModel.find();
   },
 };
 module.exports = StudentDAO;

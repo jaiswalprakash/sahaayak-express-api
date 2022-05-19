@@ -7,6 +7,9 @@ const GradeValidateSchema = Joi.object({
     city: Joi.string(),
   }).required(),
   registration_number: Joi.string().required(),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required(),
 });
 
 module.exports = GradeValidateSchema;

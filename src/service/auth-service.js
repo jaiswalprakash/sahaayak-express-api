@@ -26,7 +26,6 @@ const AuthService = {
                   email: userData.email,
                   name: userData.name,
                   role: userData.role,
-                  orgId: userData.orgId ? userData.orgId : 0,
                 };
                 const _token = jwt.sign(payLoad, CONSTANT.JWT.SECRET, {
                   expiresIn: CONSTANT.JWT.TOKEN_TIMEOUT,

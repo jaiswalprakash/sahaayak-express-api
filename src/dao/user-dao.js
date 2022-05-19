@@ -12,8 +12,8 @@ const UserDAO = {
   comparePassword: (reqPassword, UserPassword) => {
     return reqPassword == UserPassword;
   },
-  list: () => {
-    return userModel.find();
+  List: (orgId) => {
+    return orgId ? userModel.find({ orgId }) : userModel.find();
   },
   getById: (data) => {
     return userModel.findOne({ _id: data });

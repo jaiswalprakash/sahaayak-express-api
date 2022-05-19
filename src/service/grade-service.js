@@ -19,9 +19,27 @@ const GradeService = {
         });
     });
   },
-  List: () => {
+  List: (orgId = null) => {
     return new Promise((resolve, reject) => {
-      GradeDAO.List()
+      GradeDAO.List(orgId)
+        .then((result) => {
+          resolve({
+            status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
+            message: CONSTANT.MESSAGE.COMMON.DATA_FOUND,
+            data: result,
+          });
+        })
+        .catch((error) => {
+          reject({
+            status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
+            message: error,
+          });
+        });
+    });
+  },
+  Detail: (id) => {
+    return new Promise((resolve, reject) => {
+      GradeDAO.Detail(id)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,

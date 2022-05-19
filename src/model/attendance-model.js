@@ -3,29 +3,24 @@ const schema = mongoose.Schema;
 
 const CONSTANT = require("../utils/constant");
 
-const UserSchema = new schema(
+const AttendanceSchema = new schema(
   {
-    name: {
-      type: String,
+    studentId: {
+      type: schema.Types.ObjectId,
+      ref: CONSTANT.COLLECTION.STUDENT,
       required: true,
     },
-    password: {
-      type: String,
+    attendanceDate: {
+      type: Date, // yyyy-mm-dd
       required: true,
     },
-    email: {
+    attendenceStatus: {
       type: String,
-      unique: true,
-      required: true,
+      enum: ["PRESENT", "ABSENT"],
     },
     orgId: {
       type: schema.Types.ObjectId,
       ref: CONSTANT.COLLECTION.ORIGANIZATION,
-      required: false,
-    },
-    role: {
-      type: String,
-      enum: CONSTANT.ROLE,
       required: true,
     },
   },
@@ -34,4 +29,7 @@ const UserSchema = new schema(
   }
 );
 
-module.exports = mongoose.model(CONSTANT.COLLECTION.USER, UserSchema);
+module.exports = mongoose.model(
+  CONSTANT.COLLECTION.ATTENDANCE,
+  AttendanceSchema
+);

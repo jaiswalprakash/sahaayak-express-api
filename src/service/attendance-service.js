@@ -1,13 +1,16 @@
-const UserDAO = require("../dao/user-dao");
+const AttendanceDAO = require("../dao/attendance-dao");
 const CONSTANT = require("../utils/constant");
-const UserService = {
-  registerUser: (payload) => {
+const AttendanceService = {
+  MarkAttendance: (payload) => {
     return new Promise((resolve, reject) => {
-      UserDAO.registerUser(payload)
+      payload.data.map((e) => {
+        e["attendanceDate"] = payload.date;
+      });
+      AttendanceDAO.Create(payload.data)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.CREATED,
-            message: CONSTANT.MESSAGE.USER.CREATED,
+            message: CONSTANT.MESSAGE.ATTENDANCE.MARKED,
             data: result,
           });
         })
@@ -19,27 +22,10 @@ const UserService = {
         });
     });
   },
-  isUserExist: (payload) => {
+  List: () => {
     return new Promise((resolve, reject) => {
-      UserDAO.isUserExist(payload)
-        .then((result) => {
-          resolve({
-            status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
-            message: CONSTANT.MESSAGE.USER.USER_ALREADY_REGISTERED,
-            data: result,
-          });
-        })
-        .catch((error) => {
-          reject({
-            status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
-            message: error,
-          });
-        });
-    });
-  },
-  List: (orgId = null) => {
-    return new Promise((resolve, reject) => {
-      UserDAO.List(orgId)
+      let origanization = 1;
+      AttendanceDAO.List(origanization)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
@@ -57,4 +43,4 @@ const UserService = {
   },
 };
 
-module.exports = UserService;
+module.exports = AttendanceService;

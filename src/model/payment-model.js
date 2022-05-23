@@ -9,7 +9,7 @@ const PaymentSchema = new schema(
       ref: CONSTANT.COLLECTION.STUDENT,
       required: true,
     },
-    attendanceDate: {
+    paymentDate: {
       type: Date, // yyyy-mm-dd
       required: true,
     },

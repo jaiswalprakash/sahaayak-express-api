@@ -1,3 +1,4 @@
+const { date } = require("joi");
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 const CONSTANT = require("../utils/constant");
@@ -10,6 +11,10 @@ const StudentSchema = new schema(
     },
     lastName: {
       type: String,
+      required: true,
+    },
+    DOB: {
+      type: Date,
       required: true,
     },
     uuid: {

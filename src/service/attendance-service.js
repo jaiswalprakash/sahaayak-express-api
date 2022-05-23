@@ -5,6 +5,7 @@ const AttendanceService = {
     return new Promise((resolve, reject) => {
       payload.data.map((e) => {
         e["attendanceDate"] = payload.date;
+        e["orgId"] = payload.orgId;
       });
       AttendanceDAO.Create(payload.data)
         .then((result) => {
@@ -22,10 +23,27 @@ const AttendanceService = {
         });
     });
   },
-  List: () => {
+  List: (orgId = null) => {
     return new Promise((resolve, reject) => {
-      let origanization = 1;
-      AttendanceDAO.List(origanization)
+      AttendanceDAO.List(orgId)
+        .then((result) => {
+          resolve({
+            status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
+            message: CONSTANT.MESSAGE.COMMON.DATA_FOUND,
+            data: result,
+          });
+        })
+        .catch((error) => {
+          reject({
+            status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
+            message: error,
+          });
+        });
+    });
+  },
+  StudentAttendance: (payload) => {
+    return new Promise((resolve, reject) => {
+      AttendanceDAO.StudentAttendance(payload)
         .then((result) => {
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,

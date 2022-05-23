@@ -17,6 +17,7 @@ const StudentValidateSchema = Joi.object({
   grade: Joi.string().required(),
   // orgId: Joi.string(),
   uuid: Joi.string().required(),
+  DOB: Joi.date().required(),
 });
 
 module.exports = StudentValidateSchema;

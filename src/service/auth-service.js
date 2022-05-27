@@ -34,7 +34,10 @@ const AuthService = {
                 resolve({
                   status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
                   message: CONSTANT.MESSAGE.USER.LOGIN_SUCCESS,
-                  data: { accessToken: _token },
+                  data: {
+                    accessToken: _token,
+                    expiry: CONSTANT.JWT.TOKEN_TIMEOUT,
+                  },
                 });
               } catch (error) {
                 reject({

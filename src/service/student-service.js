@@ -2,12 +2,24 @@ const StudentDAO = require("../dao/student-dao");
 const CONSTANT = require("../utils/constant");
 const OriganizationService = require("../service/origanization-service");
 const GradeService = require("../service/grade-service");
-const { count } = require("../model/grade-model");
+const ParentService = require("../service/parent-service");
 
 const StudentService = {
-  Create: (payload, orgId) => {
-    // let UUID = StudentService.GenerateUUID(orgId, payload.grade);
-    // console.log("uuid", UUID);
+  Create: async (payload) => {
+    await generateUUID(payload).then((result) => {
+      payload.uuid = result;
+    });
+    let parentsPayload = [...payload.parents];
+    parentsPayload.map((e) => {
+      e["orgId"] = payload.orgId;
+    });
+    await ParentService.Create(parentsPayload).then((result) => {
+      let parentsRecord = [];
+      result.data.forEach((e) => {
+        parentsRecord.push(e._id);
+      });
+      payload.parents = [...parentsRecord];
+    });
     return new Promise((resolve, reject) => {
       StudentDAO.Create(payload)
         .then((result) => {
@@ -43,24 +55,29 @@ const StudentService = {
         });
     });
   },
-  // GenerateUUID: (orgId, gradeId) => {
-  //   let orgDetail;
-  //   let gradeDetail;
-  //   OriganizationService.Detail(orgId).then((result) => {
-  //     console.log();
-  //     orgDetail = result;
-  //   });
-  //   GradeService.Detail(gradeId).then((result) => {
-  //     gradeDetail = result;
-  //   });
-  //   console.log("orgDetail", orgDetail);
-  //   console.log("gradeDetail", gradeDetail);
-  //   return (
-  //     orgDetail.name.slice(0, 3) +
-  //     "G" +
-  //     gradeDetail.name +
-  //     Math.floor(100 + Math.random() * 900)
-  //   ).toLowerCase();
-  // },
+};
+
+generateUUID = async (payload) => {
+  try {
+    let gender = payload.gender == "MALE" ? "M" : "F";
+    let orgDetail = await OriganizationService.Detail(payload.orgId);
+    let gradeDetail = await GradeService.Detail(payload.grade);
+    let studentDetail = await StudentService.List(payload.orgId);
+    let roleNumber = studentDetail.data.length + 1;
+    let UUID = (
+      orgDetail.data[0].name.slice(0, 3) +
+      "G" +
+      gradeDetail.data[0].name +
+      gender +
+      padNumber(roleNumber, 3)
+    ).toUpperCase();
+    return UUID;
+  } catch (error) {
+    console.log(error);
+  }
+};
+padNumber = (n, length) => {
+  var len = length - ("" + n).length;
+  return (len > 0 ? new Array(++len).join("0") : "") + n;
 };
 module.exports = StudentService;

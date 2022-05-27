@@ -2,6 +2,7 @@ const Constant = {
   PORT: "3000",
   MONGODB_URL: "mongodb://localhost:27017/sahaayak_express_api",
   ROLE: ["SUPER-ADMIN", "ADMIN"],
+  GENDER: ["MALE", "FEMALE"],
   COLLECTION: {
     USER: "users",
     GRADE: "grades",
@@ -10,6 +11,7 @@ const Constant = {
     ATTENDANCE: "attendances",
     FEE: "fees",
     PAYMENT: "payments",
+    PARENT: "parents",
   },
   HTTP_STATUS_CODE: {
     SUCCESS: 200,
@@ -65,6 +67,13 @@ const Constant = {
   JWT: {
     SECRET: "sahaayak@manage",
     TOKEN_TIMEOUT: "12h",
+  },
+  AWS: {
+    //DUMMY VALUE
+    s3BaseURL: "https://sahayaak.amazonaws.com/",
+    s3BucketName: "sahaayak-images/student-images",
+    accessKeyId: "",
+    secretAccessKey: "",
   },
 };
 

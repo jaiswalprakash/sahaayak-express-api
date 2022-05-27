@@ -3,22 +3,20 @@ const userDAO = require("../dao/user-dao");
 const jwt = require("jsonwebtoken");
 const AuthService = {
   //API to Login
-  signIn: (userDetail) => {
+  signIn: (loginAttempt) => {
+    const emailOrUsername = loginAttempt.email || loginAttempt.userName;
     return new Promise((resolve, reject) => {
-      if (!userDetail.email || !userDetail.password) {
+      if (!emailOrUsername || !loginAttempt.password) {
         reject({
           status: CONSTANT.HTTP_STATUS_CODE.BAD_REQUEST,
           message: CONSTANT.MESSAGE.COMMON.MESSAGE_INVALID_DATA,
         });
       }
       userDAO
-        .isUserExist({ email: userDetail.email })
+        .findOneByEmailOrUsername(emailOrUsername)
         .then((userData) => {
           if (userData) {
-            let isMatched = userDAO.comparePassword(
-              userDetail.password,
-              userData.password
-            );
+            let isMatched = userData.checkPassword(loginAttempt.password);
             if (isMatched) {
               try {
                 const payLoad = {

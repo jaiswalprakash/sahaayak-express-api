@@ -6,6 +6,11 @@ const UserDAO = {
       ...payload,
     }).save();
   },
+  findOneByEmailOrUsername: (emailOrUsername) => {
+    return UserModel.findOne({
+      $or: [{ email: emailOrUsername }, { userName: emailOrUsername }],
+    });
+  },
   isUserExist: (payload) => {
     return UserModel.findOne({ email: payload.email });
   },

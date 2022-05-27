@@ -28,6 +28,7 @@ UserService.isUserExist({ email: "prakashjaiswal625@gmail.com" })
     if (!result.data) {
       UserService.registerUser({
         name: "super-admin",
+        userName: "superAdmin",
         password: "superAdmin123",
         email: "prakashjaiswal625@gmail.com",
         role: "SUPER-ADMIN",

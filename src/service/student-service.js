@@ -6,36 +6,32 @@ const ParentService = require("../service/parent-service");
 
 const StudentService = {
   Create: async (payload) => {
-    await generateUUID(payload).then((result) => {
-      payload.uuid = result;
-    });
-    let parentsPayload = [...payload.parents];
-    parentsPayload.map((e) => {
-      e["orgId"] = payload.orgId;
-    });
-    await ParentService.Create(parentsPayload).then((result) => {
+    try {
+      let uuid = await generateUUID(payload);
+      payload.uuid = uuid;
+      let parentsPayload = [...payload.parents];
+      parentsPayload.map((e) => {
+        e.orgId = payload.orgId;
+      });
+      let parentResult = await ParentService.Create(parentsPayload);
       let parentsRecord = [];
-      result.data.forEach((e) => {
+      parentResult.data.forEach((e) => {
         parentsRecord.push(e._id);
       });
       payload.parents = [...parentsRecord];
-    });
-    return new Promise((resolve, reject) => {
-      StudentDAO.Create(payload)
-        .then((result) => {
-          resolve({
-            status: CONSTANT.HTTP_STATUS_CODE.CREATED,
-            message: CONSTANT.MESSAGE.STUDENT.CREATED,
-            data: result,
-          });
-        })
-        .catch((error) => {
-          reject({
-            status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
-            message: error,
-          });
-        });
-    });
+      let result = await StudentDAO.Create(payload);
+      return {
+        status: CONSTANT.HTTP_STATUS_CODE.CREATED,
+        message: CONSTANT.MESSAGE.STUDENT.CREATED,
+        data: result,
+      };
+    } catch (error) {
+      console.log("error c=>", error);
+      throw {
+        status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
+        message: CONSTANT.MESSAGE.COMMON.SERVER_ERROR,
+      };
+    }
   },
   List: (orgId = null) => {
     return new Promise((resolve, reject) => {
@@ -55,6 +51,14 @@ const StudentService = {
         });
     });
   },
+  studentInfo: async (orgId, uuid) => {
+    let studentInfo = await StudentDAO.studentInfo(orgId, uuid);
+    return {
+      status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
+      message: CONSTANT.MESSAGE.STUDENT.FETCHED,
+      data: studentInfo,
+    };
+  },
 };
 
 generateUUID = async (payload) => {
@@ -73,7 +77,10 @@ generateUUID = async (payload) => {
     ).toUpperCase();
     return UUID;
   } catch (error) {
-    console.log(error);
+    throw {
+      status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
+      message: error.message,
+    };
   }
 };
 padNumber = (n, length) => {

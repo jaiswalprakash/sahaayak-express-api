@@ -1,7 +1,7 @@
 const AttendanceModel = require("../model/attendance-model");
 const AttendanceDAO = {
-  Create: async (payload) => {
-    return await AttendanceModel.insertMany(payload);
+  Create: (payload) => {
+    return AttendanceModel.insertMany(payload);
   },
   List: (orgId) => {
     return orgId ? AttendanceModel.find({ orgId }) : AttendanceModel.find();

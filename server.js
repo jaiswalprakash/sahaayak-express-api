@@ -19,6 +19,11 @@ app.use("/students", require("./src/controller/student-controller"));
 app.use("/attendances", require("./src/controller/attendance-controller"));
 app.use("/fees", require("./src/controller/fee-controller"));
 app.use("/payments", require("./src/controller/payment-controller"));
+app.use("/results", require("./src/controller/result-controller"));
+app.use(
+  "/examination-type",
+  require("./src/controller/examination-type-controller")
+);
 
 // routes ends
 

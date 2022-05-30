@@ -21,6 +21,7 @@ const UserSchema = new schema(
     userName: {
       type: String,
       unique: true,
+      unique: true,
     },
     orgId: {
       type: schema.Types.ObjectId,

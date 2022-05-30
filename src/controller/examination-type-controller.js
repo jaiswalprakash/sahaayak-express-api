@@ -1,13 +1,13 @@
 const express = require("express");
-const StudentValidator = require("../validator/student-validator");
-const StudentService = require("../service/student-service");
-const isAuthenticate = require("../service/token-service");
+const ExaminationTypeService = require("../service/examination-type-service");
 const route = express.Router();
-route.post("", StudentValidator.studentValidate, isAuthenticate, (req, res) => {
+const isAuthenticate = require("../service/token-service");
+
+route.post("", isAuthenticate, (req, res) => {
   let bodyData = req.body;
   let userDetail = req.user;
   if (userDetail?.orgId) bodyData["orgId"] = userDetail.orgId;
-  StudentService.Create(bodyData)
+  ExaminationTypeService.Create(bodyData)
     .then((result) => {
       res.status(result.status).send({
         status: result.status,
@@ -23,7 +23,7 @@ route.post("", StudentValidator.studentValidate, isAuthenticate, (req, res) => {
 });
 route.get("", isAuthenticate, (req, res) => {
   let userDetail = req.user;
-  StudentService.List(userDetail?.orgId)
+  ExaminationTypeService.List(userDetail?.orgId)
     .then((result) => {
       res.status(result.status).send({
         status: result.status,
@@ -38,10 +38,10 @@ route.get("", isAuthenticate, (req, res) => {
     });
 });
 
-route.get("/student-info/:uuid", isAuthenticate, (req, res) => {
-  let userDetail = req.user;
-  let uuid = req.params.uuid;
-  StudentService.studentInfo(userDetail?.orgId, uuid)
+route.get("/:id", isAuthenticate, (req, res) => {
+  let id = req.params.id;
+  console.log(req.params);
+  GradeService.Detail(id)
     .then((result) => {
       res.status(result.status).send({
         status: result.status,

@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 const CONSTANT = require("../utils/constant");
 const PaymentSchema = new schema(
   {
-    studentId: {
+    student: {
       type: schema.Types.ObjectId,
       ref: CONSTANT.COLLECTION.STUDENT,
       required: true,

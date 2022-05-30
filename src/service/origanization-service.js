@@ -1,9 +1,9 @@
 const OriganizationDAO = require("../dao/origanization-dao");
 const CONSTANT = require("../utils/constant");
+const UserService = require("../service/user-service");
 const OriganizationService = {
-  Create: (payload) => {
-    return new Promise((resolve, reject) => {
-      /*  when origanization is created create user
+  Create: async (payload) => {
+    /*  when origanization is created create user
           email:org-email,
           role:ADMIN ,
           orgid:created orgid, 
@@ -11,21 +11,33 @@ const OriganizationService = {
           password:name+123,
           and send email to that email login Credential(for noe console the creditional)
       */
-      OriganizationDAO.Create(payload)
-        .then((result) => {
-          resolve({
-            status: CONSTANT.HTTP_STATUS_CODE.CREATED,
-            message: CONSTANT.MESSAGE.ORIGANIZATION.CREATED,
-            data: result,
-          });
-        })
-        .catch((error) => {
-          reject({
-            status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
-            message: error,
-          });
-        });
-    });
+    try {
+      let result = await OriganizationDAO.Create(payload);
+      let adminForOrgDetail = {
+        email: result.email,
+        role: "ADMIN",
+        orgId: result.orgId,
+        name: result.name + " " + "Admin",
+        userName: result.name + "@" + "Admin",
+        password: result.name + "@" + 123,
+      };
+      let adminForOrg = await UserService.registerUser(adminForOrgDetail);
+      console.log("org admin login detail", {
+        email: adminForOrg.email,
+        password: adminForOrgDetail.password,
+      });
+      return {
+        status: CONSTANT.HTTP_STATUS_CODE.CREATED,
+        message: CONSTANT.MESSAGE.ORIGANIZATION.CREATED,
+        data: result,
+      };
+    } catch (error) {
+      console.log("error c=>", error);
+      throw {
+        status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
+        message: CONSTANT.MESSAGE.COMMON.SERVER_ERROR,
+      };
+    }
   },
   List: () => {
     return new Promise((resolve, reject) => {

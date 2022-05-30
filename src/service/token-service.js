@@ -26,7 +26,7 @@ async function isAuthenticate(req, res, next) {
     if (user == null) {
       throw new Error("Invalid Token");
     }
-    console.log("user=====>", user);
+    //console.log("user=====>", user);
     req.user = user;
     next();
   } catch (error) {

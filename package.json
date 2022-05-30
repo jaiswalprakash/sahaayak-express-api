@@ -11,7 +11,8 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "gitty": "node git-commit.js"
   },
   "name": "sahaayak-express-api",
   "version": "1.0.0",

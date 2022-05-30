@@ -12,6 +12,8 @@ const Constant = {
     FEE: "fees",
     PAYMENT: "payments",
     PARENT: "parents",
+    EXAMINATION_TYPE: "examinationTypes",
+    RESULT: "results",
   },
   HTTP_STATUS_CODE: {
     SUCCESS: 200,
@@ -51,6 +53,7 @@ const Constant = {
     },
     STUDENT: {
       CREATED: "Student Created Successfully.",
+      FETCHED: "Student Data Fatched ",
     },
     PAYMENT: {
       CREATED: "Payment Done Successfully.",
@@ -62,6 +65,13 @@ const Constant = {
       MESSAGE_DATA_NOT_FOUND: "Data not found.",
       MESSAGE_UNAUTHORIZED_ACCESS: "You are not authorized for this action.",
       DATA_FOUND: "Data found",
+    },
+    EXAMINATION_TYPE: {
+      CREATED: "Examination Type Done Successfully.",
+    },
+    RESULT: {
+      CREATED: "Result Done Successfully.",
+      FETCHED: "Data Fatched Successfully",
     },
   },
   JWT: {

@@ -2,22 +2,19 @@ const mongoose = require("../../database");
 const schema = mongoose.Schema;
 
 const CONSTANT = require("../utils/constant");
-
-const AttendanceSchema = new schema(
+const ExaminationTypeSchema = new schema(
   {
-    student: {
-      type: schema.Types.ObjectId,
-      ref: CONSTANT.COLLECTION.STUDENT,
-      required: true,
-    },
-    attendanceDate: {
-      type: Date, // yyyy-mm-dd
-      required: true,
-    },
-    attendenceStatus: {
+    name: {
       type: String,
-      enum: ["PRESENT", "ABSENT"],
+      required: true,
     },
+    grade: [
+      {
+        type: schema.Types.ObjectId,
+        ref: CONSTANT.COLLECTION.GRADE,
+        required: true,
+      },
+    ],
     orgId: {
       type: schema.Types.ObjectId,
       ref: CONSTANT.COLLECTION.ORIGANIZATION,
@@ -30,6 +27,6 @@ const AttendanceSchema = new schema(
 );
 
 module.exports = mongoose.model(
-  CONSTANT.COLLECTION.ATTENDANCE,
-  AttendanceSchema
+  CONSTANT.COLLECTION.EXAMINATION_TYPE,
+  ExaminationTypeSchema
 );

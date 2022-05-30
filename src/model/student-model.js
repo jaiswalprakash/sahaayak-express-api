@@ -63,16 +63,17 @@ const StudentSchema = new schema(
   }
 );
 // if we want to modify any field before saving
-// StudentSchema.methods.toJSON = function () {
-//   const obj = this.toObject();
-//   obj.StudentImgURL = obj.StudentImgURL
-//     ? CONSTANT.AWS.s3BaseURL +
-//       CONSTANT.AWS.s3BucketName +
-//       "/" +
-//       obj.StudentImgURL
-//     : obj.StudentImgURL;
-//   return obj;
-// };
+StudentSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  console.log("obj", obj);
+  obj.StudentImgURL = obj.StudentImgURL
+    ? CONSTANT.AWS.s3BaseURL +
+      CONSTANT.AWS.s3BucketName +
+      "/" +
+      obj.StudentImgURL
+    : obj.StudentImgURL;
+  return obj;
+};
 module.exports = mongoose.model(CONSTANT.COLLECTION.STUDENT, StudentSchema);
 
 /* 

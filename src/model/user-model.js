@@ -3,6 +3,7 @@ const schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const CONSTANT = require("../utils/constant");
 const saltRounds = 10;
+//var mongoose_delete = require("mongoose-delete");
 const UserSchema = new schema(
   {
     name: {
@@ -30,7 +31,7 @@ const UserSchema = new schema(
     },
     role: {
       type: String,
-      enum: CONSTANT.ROLE,
+      enum: Object.values(CONSTANT.ROLE),
       required: true,
     },
   },
@@ -38,6 +39,8 @@ const UserSchema = new schema(
     timestamps: true,
   }
 );
+//UserSchema.plugin(mongoose_delete, { deletedAt: true, deletedBy: true });
+
 UserSchema.pre("save", function (next) {
   const user = this;
 
@@ -58,7 +61,7 @@ UserSchema.pre("save", function (next) {
     });
   });
 });
-
+// Now all of our users instances have a setPassword method available to them
 UserSchema.methods.setPassword = function (password) {
   const user = this;
   user.password = password;
@@ -68,6 +71,7 @@ UserSchema.methods.setPassword = function (password) {
   }
   return bcrypt.hashSync(user.password, user.salt);
 };
+// Now all of our users instances have a checkPassword method available to them
 UserSchema.methods.checkPassword = function (attempt) {
   const user = this;
   return bcrypt.compareSync(attempt, user.password);

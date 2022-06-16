@@ -1,7 +1,7 @@
 const Constant = {
   PORT: "3000",
   MONGODB_URL: "mongodb://localhost:27017/sahaayak_express_api",
-  ROLE: ["SUPER-ADMIN", "ADMIN"],
+  ROLE: { superAdmin: "SUPER-ADMIN", admin: "ADMIN" },
   GENDER: ["MALE", "FEMALE"],
   COLLECTION: {
     USER: "users",
@@ -32,6 +32,7 @@ const Constant = {
       MESSAGE_INVALID_CREDENTIALS: "Invalid Credentials.",
       NOT_REGISTERED: "User not registered with the given Email.",
       LOGIN_SUCCESS: "User loggedin successfully",
+      DELETE: "User Record Deleted. ",
     },
     ATTENDANCE: {
       MARKED: "Attendance-Marked Created Successfully.",

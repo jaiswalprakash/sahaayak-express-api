@@ -3,10 +3,13 @@ const OriganizationService = require("../service/Origanization-service");
 const route = express.Router();
 const OriganizationValidator = require("../validator/origanization-validator");
 const isAuthenticate = require("../service/token-service");
+const CONSTANT = require("../utils/constant");
+const rolesGuard = require("../service/role-guard.service");
 route.post(
   "",
   OriganizationValidator.OriganizationValidate,
   isAuthenticate,
+  rolesGuard(CONSTANT.ROLE.superAdmin),
   (req, res) => {
     let bodyData = req.body;
     OriganizationService.Create(bodyData)

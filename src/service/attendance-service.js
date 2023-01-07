@@ -1,5 +1,6 @@
 const AttendanceDAO = require("../dao/attendance-dao");
 const CONSTANT = require("../utils/constant");
+
 const AttendanceService = {
   MarkAttendance: (payload) => {
     return new Promise((resolve, reject) => {
@@ -45,10 +46,23 @@ const AttendanceService = {
     return new Promise((resolve, reject) => {
       AttendanceDAO.StudentAttendance(payload)
         .then((result) => {
+          let response = {
+            numberOfDay:
+              Math.round(
+                (new Date(payload.date.to) - new Date(payload.date.from)) /
+                  (1000 * 60 * 60 * 24)
+              ) || 0,
+            presentDay:
+              result.filter((el) => el.attendenceStatus === "PRESENT").length ||
+              0,
+            absentDay:
+              result.filter((el) => el.attendenceStatus === "ABSENT").length ||
+              0,
+          };
           resolve({
             status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
             message: CONSTANT.MESSAGE.COMMON.DATA_FOUND,
-            data: result,
+            data: response,
           });
         })
         .catch((error) => {

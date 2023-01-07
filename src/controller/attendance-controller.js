@@ -16,6 +16,7 @@ route.post("/mark-attendance", isAuthenticate, (req, res) => {
       });
     })
     .catch((error) => {
+      console.error("error in mark-attendance", error);
       res
         .status(error.status)
         .send({ status: error.status, message: error.message });
@@ -32,6 +33,7 @@ route.get("", isAuthenticate, (req, res) => {
       });
     })
     .catch((error) => {
+      console.error("error in /attendances", error);
       res
         .status(error.status)
         .send({ status: error.status, message: error.message });
@@ -41,7 +43,6 @@ route.post("/student", isAuthenticate, (req, res) => {
   let bodyData = req.body;
   let userDetail = req.user;
   if (userDetail?.orgId) bodyData["orgId"] = userDetail.orgId;
-  console.log("userDetail=>", userDetail);
   AttendanceService.StudentAttendance(bodyData)
     .then((result) => {
       res.status(result.status).send({
@@ -51,6 +52,7 @@ route.post("/student", isAuthenticate, (req, res) => {
       });
     })
     .catch((error) => {
+      console.error("error in /attendances/student", error);
       res
         .status(error.status)
         .send({ status: error.status, message: error.message });

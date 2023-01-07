@@ -10,13 +10,13 @@ const AttendanceDAO = {
     let criteria = { studentId: payload.studentId };
     if (payload.date) {
       criteria["attendanceDate"] = {
-        $gte: payload.date.from,
-        $lt: payload.date.to,
+        $gte: new Date(payload.date.from),
+        $lte: new Date(payload.date.to),
       };
     }
     if (payload.orgId) criteria["orgId"] = payload.orgId;
-    console.log("criteria", criteria);
-    return AttendanceModel.find(criteria);
+    let res = AttendanceModel.find(criteria);
+    return res;
   },
 };
 

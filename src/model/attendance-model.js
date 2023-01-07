@@ -5,7 +5,7 @@ const CONSTANT = require("../utils/constant");
 
 const AttendanceSchema = new schema(
   {
-    student: {
+    studentId: {
       type: schema.Types.ObjectId,
       ref: CONSTANT.COLLECTION.STUDENT,
       required: true,

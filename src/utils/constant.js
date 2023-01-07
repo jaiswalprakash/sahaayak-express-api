@@ -41,7 +41,7 @@ const Constant = {
       DELETE: "User Record Deleted. ",
     },
     ATTENDANCE: {
-      MARKED: "Attendance-Marked Created Successfully.",
+      MARKED: "Attendance-Marked Successfully.",
     },
     GRADE: {
       CREATED: "Grade Created Successfully.",

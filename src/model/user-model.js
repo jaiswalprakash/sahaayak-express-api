@@ -3,7 +3,6 @@ const schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const CONSTANT = require("../utils/constant");
 const saltRounds = 10;
-//var mongoose_delete = require("mongoose-delete");
 const UserSchema = new schema(
   {
     name: {
@@ -76,4 +75,5 @@ UserSchema.methods.checkPassword = function (attempt) {
   const user = this;
   return bcrypt.compareSync(attempt, user.password);
 };
+
 module.exports = mongoose.model(CONSTANT.COLLECTION.USER, UserSchema);

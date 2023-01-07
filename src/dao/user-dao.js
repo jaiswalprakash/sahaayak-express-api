@@ -1,18 +1,17 @@
 const userModel = require("../model/user-model");
-const UserModel = require("../model/user-model");
 const UserDAO = {
   registerUser: (payload) => {
-    return new UserModel({
+    return new userModel({
       ...payload,
     }).save();
   },
   findOneByEmailOrUsername: (emailOrUsername) => {
-    return UserModel.findOne({
+    return userModel.findOne({
       $or: [{ email: emailOrUsername }, { userName: emailOrUsername }],
     });
   },
   isUserExist: (payload) => {
-    return UserModel.findOne({ email: payload.email });
+    return userModel.findOne({ email: payload.email });
   },
   comparePassword: (reqPassword, UserPassword) => {
     return reqPassword == UserPassword;
@@ -22,6 +21,9 @@ const UserDAO = {
   },
   getById: (data) => {
     return userModel.findOne({ _id: data });
+  },
+  delete: (user) => {
+    return userModel.deleteOne({ _id: user });
   },
 };
 module.exports = UserDAO;

@@ -38,7 +38,7 @@ UserService.isUserExist({ email: "prakashjaiswal625@gmail.com" })
         email: "prakashjaiswal625@gmail.com",
         role: "SUPER-ADMIN",
       })
-        .then((reslt) => {
+        .then((result) => {
           console.log("SUPER-ADMIN Created Successfully");
         })
         .catch((error) => {

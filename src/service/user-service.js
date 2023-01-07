@@ -55,6 +55,25 @@ const UserService = {
         });
     });
   },
+
+  Delete: async (user) => {
+    try {
+      let result = await UserDAO.delete(user);
+      if (result.deletedCount) {
+        return {
+          status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
+          message: CONSTANT.MESSAGE.STUDENT.DELETE,
+          data: result,
+        };
+      }
+    } catch (error) {
+      console.log("error c=>", error);
+      throw {
+        status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
+        message: CONSTANT.MESSAGE.COMMON.SERVER_ERROR,
+      };
+    }
+  },
 };
 
 module.exports = UserService;

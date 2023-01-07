@@ -13,10 +13,11 @@ const OriganizationService = {
       */
     try {
       let result = await OriganizationDAO.Create(payload);
+
       let adminForOrgDetail = {
         email: result.email,
         role: "ADMIN",
-        orgId: result.orgId,
+        orgId: result._id,
         name: result.name + " " + "Admin",
         userName: result.name + "@" + "Admin",
         password: result.name + "@" + 123,

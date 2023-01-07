@@ -8,11 +8,13 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
+    "mongoose-delete": "^0.5.4",
     "nodemon": "^2.0.16"
   },
   "scripts": {
     "start": "node server.js",
-    "gitty": "node git-commit.js"
+    "gitty": "node git-commit.js",
+    "autostart": "nodemon server.js"
   },
   "name": "sahaayak-express-api",
   "version": "1.0.0",

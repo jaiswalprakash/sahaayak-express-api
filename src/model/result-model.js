@@ -63,6 +63,7 @@ const ResultSchema = new schema(
     timestamps: true,
   }
 );
+// we are overriding the toJSON method
 ResultSchema.methods.toJSON = function () {
   const obj = this.toObject();
   var totalObtainedMark = 0;

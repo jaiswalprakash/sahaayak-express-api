@@ -75,20 +75,3 @@ StudentSchema.methods.toJSON = function () {
   return obj;
 };
 module.exports = mongoose.model(CONSTANT.COLLECTION.STUDENT, StudentSchema);
-
-/* 
-db.fruit.insertMany( [
-   { type: "apple" },
-   { type: "Apple" },
-   { type: "APPLE" }
-] )
-  db.fruit.find( { type: "apple" } ) 
-    // does not use index, finds one result
-
-  db.fruit.find( { type: "apple" } ).collation( { locale: 'en', strength: 2 } )
-    // uses the index, finds three results
-
-  db.fruit.find( { type: "apple" } ).collation( { locale: 'en', strength: 1 } )
-    // does not use the index, finds three results
-    
-*/

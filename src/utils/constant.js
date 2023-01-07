@@ -1,7 +1,13 @@
 const Constant = {
   PORT: "3000",
   MONGODB_URL: "mongodb://localhost:27017/sahaayak_express_api",
-  ROLE: { superAdmin: "SUPER-ADMIN", admin: "ADMIN" },
+  ROLE: {
+    superAdmin: "SUPER-ADMIN",
+    admin: "ADMIN",
+    accountant: "ACCOUNTANT",
+    examiner: "EXAMINER",
+    attendance: "ATTENDANCE",
+  },
   GENDER: ["MALE", "FEMALE"],
   COLLECTION: {
     USER: "users",

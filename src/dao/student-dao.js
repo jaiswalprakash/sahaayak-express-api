@@ -12,8 +12,14 @@ const StudentDAO = {
   studentInfo: (orgId, uuid) => {
     return studentModel
       .findOne({ orgId, uuid })
-      .populate("parents", "name email phoneNumber relation")
-      .populate("grade", "name");
+      .populate("parents", "-_id name email phoneNumber relation")
+      .populate("grade", "-_id name");
+  },
+  studentList: (orgId, grade) => {
+    return studentModel.find(
+      { orgId, grade },
+      { firstName: 1, middleName: 1, surName: 1 }
+    );
   },
 };
 module.exports = StudentDAO;

@@ -56,4 +56,23 @@ route.get("/student-info/:uuid", isAuthenticate, (req, res) => {
     });
 });
 
+route.get("/student-list/:grade", isAuthenticate, (req, res) => {
+  let userDetail = req.user;
+  let grade = req.params.grade;
+  StudentService.studentList(userDetail?.orgId, grade)
+    .then((result) => {
+      res.status(result.status).send({
+        status: result.status,
+        message: result.message,
+        data: result.data,
+      });
+    })
+    .catch((error) => {
+      console.error("error in student-list/:grade", error);
+      res
+        .status(error.status)
+        .send({ status: error?.status, message: error?.message });
+    });
+});
+
 module.exports = route;

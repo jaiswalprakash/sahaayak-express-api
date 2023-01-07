@@ -13,10 +13,12 @@ const StudentSchema = new schema(
     middleName: {
       type: String,
       required: false,
+      default: "",
     },
     surName: {
       type: String,
       required: false,
+      default: "",
     },
 
     DOB: {
@@ -65,7 +67,6 @@ const StudentSchema = new schema(
 // if we want to modify any field before saving
 StudentSchema.methods.toJSON = function () {
   const obj = this.toObject();
-  console.log("obj", obj);
   obj.StudentImgURL = obj.StudentImgURL
     ? CONSTANT.AWS.s3BaseURL +
       CONSTANT.AWS.s3BucketName +

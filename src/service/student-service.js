@@ -59,6 +59,14 @@ const StudentService = {
       data: studentInfo,
     };
   },
+  studentList: async (orgId, grade) => {
+    let studentInfo = await StudentDAO.studentList(orgId, grade);
+    return {
+      status: CONSTANT.HTTP_STATUS_CODE.SUCCESS,
+      message: CONSTANT.MESSAGE.STUDENT.FETCHED,
+      data: studentInfo,
+    };
+  },
 };
 
 generateUUID = async (payload) => {
@@ -77,6 +85,7 @@ generateUUID = async (payload) => {
     ).toUpperCase();
     return UUID;
   } catch (error) {
+    console.error("error in generateUUID", error);
     throw {
       status: CONSTANT.HTTP_STATUS_CODE.SERVER_ERROR,
       message: error.message,

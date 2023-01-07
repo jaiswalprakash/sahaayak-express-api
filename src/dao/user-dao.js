@@ -19,8 +19,8 @@ const UserDAO = {
   List: (orgId) => {
     return orgId ? userModel.find({ orgId }) : userModel.find();
   },
-  getById: (data) => {
-    return userModel.findOne({ _id: data });
+  getById: (_id) => {
+    return userModel.findOne({ _id });
   },
   delete: (user) => {
     return userModel.deleteOne({ _id: user });

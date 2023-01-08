@@ -28,7 +28,6 @@ const AttendanceSchema = new schema(
     timestamps: true,
   }
 );
-
 module.exports = mongoose.model(
   CONSTANT.COLLECTION.ATTENDANCE,
   AttendanceSchema

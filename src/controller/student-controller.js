@@ -3,25 +3,33 @@ const StudentValidator = require("../validator/student-validator");
 const StudentService = require("../service/student-service");
 const isAuthenticate = require("../service/token-service");
 const route = express.Router();
-route.post("", StudentValidator.studentValidate, isAuthenticate, (req, res) => {
-  let bodyData = req.body;
-  let userDetail = req.user;
-  if (userDetail?.orgId) bodyData["orgId"] = userDetail.orgId;
-  StudentService.Create(bodyData)
-    .then((result) => {
-      res.status(result.status).send({
-        status: result.status,
-        message: result.message,
-        data: result.data,
+
+route.post(
+  "/save",
+  StudentValidator.studentValidate,
+  isAuthenticate,
+  (req, res) => {
+    let bodyData = req.body;
+    let userDetail = req.user;
+    if (userDetail?.orgId) bodyData["orgId"] = userDetail.orgId;
+    StudentService.Create(bodyData)
+      .then((result) => {
+        res.status(result.status).send({
+          status: result.status,
+          message: result.message,
+          data: result.data,
+        });
+      })
+      .catch((error) => {
+        console.error("error in students/save", error);
+        res
+          .status(error.status)
+          .send({ status: error.status, message: error.message });
       });
-    })
-    .catch((error) => {
-      res
-        .status(error.status)
-        .send({ status: error.status, message: error.message });
-    });
-});
-route.get("", isAuthenticate, (req, res) => {
+  }
+);
+
+route.get("/list", isAuthenticate, (req, res) => {
   let userDetail = req.user;
   StudentService.List(userDetail?.orgId)
     .then((result) => {
@@ -32,6 +40,7 @@ route.get("", isAuthenticate, (req, res) => {
       });
     })
     .catch((error) => {
+      console.error("error in students/list", error);
       res
         .status(error.status)
         .send({ status: error.status, message: error.message });
